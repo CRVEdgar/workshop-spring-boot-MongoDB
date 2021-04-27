@@ -1,6 +1,8 @@
 package com.edgar.workshopmongodb.resources;
 
 import com.edgar.workshopmongodb.domain.User;
+import com.edgar.workshopmongodb.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,13 +16,14 @@ import java.util.List;
 @RequestMapping(value = "/users")
 public class UserResources {
 
+    // CAMADAS: controlador acessa o servico, que por sua vez acessa o repositorio
+    // UserResources -> UserService -> UserRepository
+    @Autowired
+    private UserService service;
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<User>> findAll(){
-        User maria = new User("1", "Maria", "maria@gmail.com");
-        User alex = new User("1", "Alex", "alex@gmail.com");
-        List<User> list = new ArrayList<>();
-        list.addAll(Arrays.asList(maria,alex));
-
-       return ResponseEntity.ok().body(list);
+        List<User> list = service.findAll();
+        return ResponseEntity.ok().body(list);
     }
 }
