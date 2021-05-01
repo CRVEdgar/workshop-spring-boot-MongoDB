@@ -31,6 +31,11 @@ public class UserService {
         return repository.insert(obj);
     }
 
+    public void delete(String id){
+        findById(id); // aproveitando o metodo pra caso nao encontre o objeto com o id inf, sera retornada uma excessao
+        repository.deleteById(id);
+    }
+
     public User fromDTO(UserDTO objDTO){ //serve para converter um UserDTO em USER
         return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail());
     }

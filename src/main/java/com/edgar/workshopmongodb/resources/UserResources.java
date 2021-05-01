@@ -42,4 +42,12 @@ public class UserResources {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).build(); //retorna o codigo 201
     }
+
+    @RequestMapping( value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable String id){ //informa que o valor do parametro eh o caminho da linha de codigo acima
+        service.delete(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }
